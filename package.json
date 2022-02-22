@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "yarn tsc",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "docker-build": "docker build . --tag vb/note-taking-app",
+    "docker-run": "docker run --name note-taking-app-container --publish 5000:5000 vb/note-taking-app"
   },
   "dependencies": {
     "ejs": "^3.1.6",
