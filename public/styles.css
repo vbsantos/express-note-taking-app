@@ -1,0 +1,21 @@
+body {
+  font-family: monospace;
+  max-width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+form.full-page {
+  display: flex;
+  flex-direction: column;
+}
+
+input, button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
