@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>
+    <%= note.title %>
+  </title>
+</head>
+
+<body>
+  <a href="/notes">
+    <button>All Notes</button>
+  </a>
+
+  <div>
+    <h1>
+      <%= note.title %>
+    </h1>
+
+    <p>
+      <%= note.content %>
+    </p>
+
+    <small>
+      <%= `Created at: ${new Date(note.createdAt)}` %>
+    </small>
+  </div>
+
+  <form action="/notes/delete" method="POST">
+    <input type="hidden" name="noteId" value="<%= note.id %>">
+    <button type="submit">Delete Note</button>
+  </form>
+
+  <a href="/notes/<%= note.id %>/edit">
+    <button>Edit Note</button>
+  </a>
+
+</body>
+
+</html>
