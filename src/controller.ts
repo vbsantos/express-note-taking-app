@@ -5,8 +5,8 @@ import { INote, IDatabase } from './database';
 export class Controller {
   private database: IDatabase;
 
-  constructor(injectedDatabase: IDatabase) {
-    this.database = injectedDatabase;
+  constructor(database: IDatabase) {
+    this.database = database;
   }
 
   // store
