@@ -9,32 +9,6 @@ export class Controller {
     this.database = database;
   }
 
-  // store
-  storeNote = (req: Request, res: Response) => {
-    const { title, content } = req.body;
-    this.database.storeNote(title, content);
-    res.redirect('/notes');
-  };
-
-  // update
-  updateNote = (req: Request, res: Response) => {
-    const { noteId, title, content } = req.body;
-    this.database.updateNote(noteId, title, content);
-    res.redirect(`/notes/${noteId}`);
-  };
-
-  // delete
-  deleteNote = (req: Request, res: Response) => {
-    const { noteId } = req.body;
-    this.database.deleteNote(noteId);
-    res.redirect('/notes');
-  };
-
-  // redirect to the main page
-  goToMainPage = (_req: Request, res: Response) => {
-    res.redirect('/notes');
-  };
-
   // index view - renders notes page
   notesView = (req: Request, res: Response) => {
     const previewStringSize = 175;
@@ -64,5 +38,31 @@ export class Controller {
     const note: INote = this.database.getNoteById(noteId);
     if (!note) throw new Error('PAGE_NOT_FOUND');
     res.render('editNote.ejs', { note });
+  };
+
+  // store
+  storeNote = (req: Request, res: Response) => {
+    const { title, content } = req.body;
+    this.database.storeNote(title, content);
+    res.redirect('/notes');
+  };
+
+  // update
+  updateNote = (req: Request, res: Response) => {
+    const { noteId, title, content } = req.body;
+    this.database.updateNote(noteId, title, content);
+    res.redirect(`/notes/${noteId}`);
+  };
+
+  // delete
+  deleteNote = (req: Request, res: Response) => {
+    const { noteId } = req.body;
+    this.database.deleteNote(noteId);
+    res.redirect('/notes');
+  };
+
+  // redirect to the main page
+  goToMainPage = (_req: Request, res: Response) => {
+    res.redirect('/notes');
   };
 }
