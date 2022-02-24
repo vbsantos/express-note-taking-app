@@ -24,8 +24,6 @@ export class Middleware {
   ) => {
     next();
 
-    console.error(err); // REVIEW LOGGER
-
     if (err.toString() === 'Error: PAGE_NOT_FOUND') {
       this.sendPageNotFound(res);
     }

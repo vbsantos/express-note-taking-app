@@ -37,8 +37,6 @@ export class Controller {
 
   // index view - renders notes page
   notesView = (req: Request, res: Response) => {
-    throw new Error('asd');
-
     const previewStringSize = 175;
     const { search } = req.query;
     const notes = !search
