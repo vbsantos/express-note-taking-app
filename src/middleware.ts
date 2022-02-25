@@ -1,5 +1,8 @@
 import {
-  ErrorRequestHandler, NextFunction, Request, Response,
+  ErrorRequestHandler,
+  NextFunction,
+  Request,
+  Response,
 } from 'express';
 
 export class Middleware {
