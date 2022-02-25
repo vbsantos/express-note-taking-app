@@ -19,6 +19,11 @@ export class Middleware {
     this.sendPageNotFound(res);
   };
 
+  serverErrorLogger = (err, _req, _res, next) => {
+    console.error('\x1b[31m', '[ERROR]', err); // adding some color to our logs
+    next(err);
+  };
+
   serverErrorHandler = (
     err: ErrorRequestHandler,
     _req: Request,

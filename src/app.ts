@@ -13,5 +13,6 @@ app.use(express.static('public'));
 app.use(routes);
 
 // custom middleware
+app.use(middleware.serverErrorLogger);
 app.use(middleware.pageNotFoundView);
 app.use(middleware.serverErrorHandler);
