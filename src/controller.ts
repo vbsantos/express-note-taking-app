@@ -13,7 +13,7 @@ export class Controller {
   notesView = (req: Request, res: Response) => {
     const previewStringSize = 175;
     const { search } = req.query;
-    const notes = !search
+    const notes: INote[] = !search
       ? this.database.getNotes()
       : this.database.getNotesByText(search.toString());
     res.render('notes.ejs', { notes, previewStringSize });
