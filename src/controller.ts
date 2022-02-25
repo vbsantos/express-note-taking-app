@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-import { INote, IDatabase } from './database';
+import { IDatabase, INote } from './types';
 
 export class Controller {
   private database: IDatabase;
@@ -20,10 +20,13 @@ export class Controller {
   };
 
   // show view - renders note page
-  noteByIdView = (req: Request, res: Response) => {
+  noteByIdView = (req: Request, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
     const note: INote = this.database.getNoteById(noteId);
-    if (!note) throw new Error('PAGE_NOT_FOUND');
+    if (!note) {
+      next();
+      return;
+    }
     res.render('note.ejs', { note });
   };
 
@@ -33,10 +36,13 @@ export class Controller {
   };
 
   // edit view - renders a page with a form for editing a note
-  getNoteByIdEditView = (req: Request, res: Response) => {
+  getNoteByIdEditView = (req: Request, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
     const note: INote = this.database.getNoteById(noteId);
-    if (!note) throw new Error('PAGE_NOT_FOUND');
+    if (!note) {
+      next();
+      return;
+    }
     res.render('editNote.ejs', { note });
   };
 
