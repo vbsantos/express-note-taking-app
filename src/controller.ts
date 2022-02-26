@@ -48,17 +48,19 @@ export class Controller {
   };
 
   // store
-  storeNote = async (req: Request, res: Response) => {
+  storeNote = async (req: Request, res: Response, next: NextFunction) => {
     const { title, content } = req.body;
+    if (!title || !content) next();
     const noteId = uuidv4();
     await this.database.storeNote(noteId, title, content);
     res.redirect('/notes');
   };
 
   // update
-  updateNote = async (req: Request, res: Response) => {
-    const { noteId } = req.params;
+  updateNote = async (req: Request, res: Response, next: NextFunction) => {
     const { title, content } = req.body;
+    if (!title || !content) next();
+    const { noteId } = req.params;
     await this.database.updateNote(noteId, title, content);
     res.redirect(`/notes/${noteId}`);
   };
