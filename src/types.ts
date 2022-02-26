@@ -4,6 +4,7 @@ export interface INote {
   updatedAt: number;
   title: string;
   content: string;
+  [x: string]: any;
 }
 
 export interface IDatabase {
