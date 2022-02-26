@@ -13,13 +13,13 @@ routes.get('/', controller.goToMainPage);
 
 routes.get('/notes', controller.notesView);
 
-routes.get('/notes/add', controller.storeNoteView);
-
 routes.get('/notes/:noteId', controller.noteByIdView);
 
-routes.get('/notes/:noteId/edit', controller.getNoteByIdEditView);
+routes.get('/notes/add', controller.storeNoteView);
 
 routes.post('/notes/store', controller.storeNote);
+
+routes.get('/notes/:noteId/edit', controller.getNoteByIdEditView);
 
 routes.post('/notes/:noteId/update', controller.updateNote);
 
