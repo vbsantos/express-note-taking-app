@@ -20,9 +20,7 @@
     Edit Note
   </h1>
 
-  <form class="full-page" action="/notes/update" method="POST">
-    <input type="hidden" name="noteId" value="<%= note.id %>">
-
+  <form class="full-page" action="/notes/<%= note.id %>/update" method="POST">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" autofocus value="<%= note.title %>" />
 

@@ -30,8 +30,7 @@
     </small>
   </div>
 
-  <form action="/notes/delete" method="POST">
-    <input type="hidden" name="noteId" value="<%= note.id %>">
+  <form action="/notes/<%= note.id %>/delete" method="POST">
     <button type="submit">Delete Note</button>
   </form>
 

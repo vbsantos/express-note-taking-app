@@ -21,8 +21,8 @@ routes.get('/notes/:noteId/edit', controller.getNoteByIdEditView);
 
 routes.post('/notes/store', controller.storeNote);
 
-routes.post('/notes/update', controller.updateNote);
+routes.post('/notes/:noteId/update', controller.updateNote);
 
-routes.post('/notes/delete', controller.deleteNote);
+routes.post('/notes/:noteId/delete', controller.deleteNote);
 
 export { routes };

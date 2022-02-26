@@ -57,14 +57,15 @@ export class Controller {
 
   // update
   updateNote = async (req: Request, res: Response) => {
-    const { noteId, title, content } = req.body;
+    const { noteId } = req.params;
+    const { title, content } = req.body;
     await this.database.updateNote(noteId, title, content);
     res.redirect(`/notes/${noteId}`);
   };
 
   // delete
   deleteNote = async (req: Request, res: Response) => {
-    const { noteId } = req.body;
+    const { noteId } = req.params;
     await this.database.deleteNote(noteId);
     res.redirect('/notes');
   };
