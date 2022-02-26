@@ -65,8 +65,8 @@ export class Database implements IDatabase {
   }
 
   async storeNote(noteId: string, title: string, content: string): Promise<INote> {
-    const note = {
-      id: noteId,
+    const note: INote = {
+      _id: noteId,
       title,
       content,
       createdAt: Date.now(),
