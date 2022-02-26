@@ -13,9 +13,9 @@ export class Database implements IDatabase {
   }
 
   connect = async (): Promise<void> => {
-    await mongoose.connect(this.mongoDbConnectionString);
     this.db = mongoose.connection;
-    this.db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+    this.db.on('error', console.error.bind(console, '[\x1b[31mDATABASE ERROR\x1b[0m]')); // REVIEW LOGGER
+    await mongoose.connect(this.mongoDbConnectionString);
   };
 
   getNotes = async (): Promise<INote[]> => {

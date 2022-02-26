@@ -20,7 +20,7 @@ export class Middleware {
   };
 
   serverErrorLogger = (err, _req, _res, next) => {
-    console.error('[\x1b[31mERROR\x1b[0m]', err); // adding some color to our logs
+    console.error('[\x1b[31mSERVER ERROR\x1b[0m]', err); // REVIEW LOGGER
     next(err);
   };
 
