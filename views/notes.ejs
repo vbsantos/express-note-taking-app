@@ -23,7 +23,7 @@
     <!-- List of Notes -->
     <ul>
       <% notes.map((note)=> { %>
-        <li id='<%= note.id %>'>
+        <li id='<%= note._id %>'>
           <section>
             <h2>
               <%= note.title %>
@@ -33,7 +33,7 @@
             <% } else { %>
               <%= note.content %>
             <% } %>
-            <a href="<%= `/notes/${note.id}` %>">Read More</a>
+            <a href="<%= `/notes/${note._id}` %>">Read More</a>
           </section>
         </li>
       <% }) %>
