@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 import { IDatabase, INote } from './types';
 
@@ -10,19 +11,19 @@ export class Controller {
   }
 
   // index view - renders notes page
-  notesView = (req: Request, res: Response) => {
+  notesView = async (req: Request, res: Response) => {
     const previewStringSize = 175;
     const { search } = req.query;
     const notes: INote[] = !search
-      ? this.database.getNotes()
-      : this.database.getNotesByText(search.toString());
+      ? await this.database.getNotes()
+      : await this.database.getNotesByText(search.toString());
     res.render('notes.ejs', { notes, previewStringSize });
   };
 
   // show view - renders note page
-  noteByIdView = (req: Request, res: Response, next: NextFunction) => {
+  noteByIdView = async (req: Request, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
-    const note: INote = this.database.getNoteById(noteId);
+    const note: INote = await this.database.getNoteById(noteId);
     if (!note) {
       next();
       return;
@@ -36,9 +37,9 @@ export class Controller {
   };
 
   // edit view - renders a page with a form for editing a note
-  getNoteByIdEditView = (req: Request, res: Response, next: NextFunction) => {
+  getNoteByIdEditView = async (req: Request, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
-    const note: INote = this.database.getNoteById(noteId);
+    const note: INote = await this.database.getNoteById(noteId);
     if (!note) {
       next();
       return;
@@ -47,23 +48,24 @@ export class Controller {
   };
 
   // store
-  storeNote = (req: Request, res: Response) => {
+  storeNote = async (req: Request, res: Response) => {
     const { title, content } = req.body;
-    this.database.storeNote(title, content);
+    const noteId = uuidv4();
+    await this.database.storeNote(noteId, title, content);
     res.redirect('/notes');
   };
 
   // update
-  updateNote = (req: Request, res: Response) => {
+  updateNote = async (req: Request, res: Response) => {
     const { noteId, title, content } = req.body;
-    this.database.updateNote(noteId, title, content);
+    await this.database.updateNote(noteId, title, content);
     res.redirect(`/notes/${noteId}`);
   };
 
   // delete
-  deleteNote = (req: Request, res: Response) => {
+  deleteNote = async (req: Request, res: Response) => {
     const { noteId } = req.body;
-    this.database.deleteNote(noteId);
+    await this.database.deleteNote(noteId);
     res.redirect('/notes');
   };
 
