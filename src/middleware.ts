@@ -40,7 +40,7 @@ export class Middleware {
       error: {
         code: 500,
         body: 'Error 500: Sorry, try again later 📖',
-        details: JSON.stringify(err.toString(), undefined, 2),
+        details: err.toString(),
       },
     });
   };
