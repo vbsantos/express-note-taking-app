@@ -19,32 +19,33 @@ export class Database implements IDatabase {
   };
 
   getNotes = async (): Promise<INote[]> => {
-    const notes: INote[] = await Note.find();
+    const notes: INote[] = await Note.find().exec();
     return notes;
   };
 
   getNoteById = async (noteId: string): Promise<INote> => {
-    const note: INote = await Note.findById(noteId);
+    const note: INote = await Note.findById(noteId).exec();
     return note;
   };
 
   updateNote = async (noteId: string, title: string, content: string): Promise<string> => {
-    const note: INote = await Note.findByIdAndUpdate(noteId, { title, content });
+    const note: INote = await Note.findByIdAndUpdate(noteId, { title, content }).exec();
     return note._id;
   };
 
   getNotesByText = async (search: string): Promise<INote[]> => {
-    const notes: INote[] = await Note.find({ $text: { $search: search } });
+    const notes: INote[] = await Note.find({ $text: { $search: search } }).exec();
     return notes;
   };
 
   storeNote = async (noteId: string, title: string, content: string): Promise<INote> => {
-    const note: INote = await Note.create({ _id: noteId, title, content });
+    const newNote: INote = new Note({ _id: noteId, title, content });
+    const note = await newNote.save();
     return note;
   };
 
   deleteNote = async (noteId: string): Promise<string> => {
-    const note: INote = await Note.findOneAndDelete({ _id: noteId });
+    const note: INote = await Note.findOneAndDelete({ _id: noteId }).exec();
     return note._id;
   };
 }
