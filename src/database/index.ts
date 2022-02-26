@@ -10,12 +10,12 @@ export class Database implements IDatabase {
   constructor(mongoDbConnectionString: string) {
     this.mongoDbConnectionString = mongoDbConnectionString;
     this.connect();
-    this.db = mongoose.connection;
-    this.db.on('error', console.error.bind(console, 'MongoDB connection error:'));
   }
 
   connect = async (): Promise<void> => {
     await mongoose.connect(this.mongoDbConnectionString);
+    this.db = mongoose.connection;
+    this.db.on('error', console.error.bind(console, 'MongoDB connection error:'));
   };
 
   getNotes = async (): Promise<INote[]> => {
