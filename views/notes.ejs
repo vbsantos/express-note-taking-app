@@ -14,10 +14,10 @@
     <h1>Notes</h1>
 
     <!-- Search Notes -->
-    <form action="">
+    <form action="/notes" method="GET">
       <label for="searchInput">Search</label>
       <input type="text" name="search" id="searchInput">
-      <button>Search</button>
+      <button type="submit">Search</button>
     </form>
 
     <!-- List of Notes -->
@@ -39,6 +39,7 @@
       <% }) %>
     </ul>
   </div>
+  
   <a href="/notes/add">
     <button>Add Note</button>
   </a>
