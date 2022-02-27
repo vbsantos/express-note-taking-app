@@ -1,7 +1,7 @@
 FROM node:17.5
 
 WORKDIR /home/app
-EXPOSE 5000
+EXPOSE 8080
 
 COPY . .
 RUN yarn && yarn build

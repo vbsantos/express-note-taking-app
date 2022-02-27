@@ -10,7 +10,7 @@
     "build": "yarn tsc",
     "start": "node build/server.js",
     "docker-build": "docker build . --tag vb/note-taking-app",
-    "docker-run": "docker run --name note-taking-app-container --publish 5000:5000 vb/note-taking-app"
+    "docker-run": "docker run --name note-taking-app-container --publish 8080:8080 vb/note-taking-app"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
