@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { Database } from './database';
 import { Controller } from './controller';
 
-const database = new Database(process.env.MONGODB_CONN_STR);
+const database = new Database(process.env.MONGO_URL);
 
 const controller = new Controller(database);
 
