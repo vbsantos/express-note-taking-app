@@ -10,7 +10,7 @@ ul {
   padding: 0;
 }
 
-form.full-page {
+form.full-width {
   display: flex;
   flex-direction: column;
 }
@@ -18,4 +18,8 @@ form.full-page {
 input, button {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+p.content-wrapper {
+  white-space: pre-line;
 }

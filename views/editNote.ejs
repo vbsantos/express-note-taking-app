@@ -21,7 +21,7 @@
     Edit Note
   </h1>
 
-  <form class="full-page" action="/notes/<%= note.id %>/update" method="POST">
+  <form class="full-width" action="/notes/<%= note.id %>/update" method="POST">
     <label for="title">Title</label>
     <input oninput="verifyInputs()" type="text" id="title" name="title" autofocus value="<%= note.title %>" />
 
