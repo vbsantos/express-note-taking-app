@@ -6,8 +6,8 @@ import { IDatabase, INote } from './types';
 export class Controller {
   private database: IDatabase;
 
-  constructor(database: IDatabase) {
-    this.database = database;
+  constructor(db: IDatabase) {
+    this.database = db;
   }
 
   // index view - renders notes page
