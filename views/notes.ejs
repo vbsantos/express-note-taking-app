@@ -6,43 +6,55 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles.css">
+  <script src="/index.js"></script>
   <title>Notes</title>
 </head>
 
 <body>
-  <div>
-    <h1>Notes</h1>
+  <div class="header">
+    <a title="Click to go to note creation" href="/notes/add">
+      <button>Add Note</button>
+    </a>
 
-    <!-- Search Notes -->
-    <form action="/notes" method="GET">
-      <label for="searchInput">Search</label>
-      <input type="text" name="search" id="searchInput">
-      <button type="submit">Search</button>
-    </form>
+    <div>
+      <% if (hasFilter) { %>
+        <form class="form-inline" action="/notes" method="GET">
+          <button title="Click to remove search filter" type="submit">Clear Filter</button>
+        </form>
+      <% } %>
 
-    <!-- List of Notes -->
-    <ul>
-      <% notes.map((note)=> { %>
-        <li id='<%= note._id %>'>
-          <section>
-            <h2>
-              <%= note.title %>
-            </h2>
-            <% if (note.content.length> previewStringSize) { %>
-              <%= note.content.substring(0, previewStringSize).trim() + '…' %>
-            <% } else { %>
-              <%= note.content %>
-            <% } %>
-            <a href="<%= `/notes/${note._id}` %>">Read More</a>
-          </section>
-        </li>
-      <% }) %>
-    </ul>
+      <form class="form-inline" action="/notes" method="GET">
+        <input oninput="verifyInputs(['search'], 'submitButton')" type="text" id="search" name="search"
+          placeholder="Search in notes">
+        <button disabled title="Click to search in notes" type="submit" id="submitButton">Search</button>
+      </form>
+    </div>
   </div>
-  
-  <a href="/notes/add">
-    <button>Add Note</button>
-  </a>
+
+  <hr>
+
+  <h1>
+    Notes
+  </h1>
+
+  <!-- List of Notes -->
+  <ul>
+    <% notes.map((note)=> { %>
+      <li id='<%= note._id %>'>
+        <section>
+          <h2>
+            <%= note.title %>
+          </h2>
+          <% if (note.content.length> previewStringSize) { %>
+            <%= note.content.substring(0, previewStringSize).trim() + '…' %>
+          <% } else { %>
+            <%= note.content %>
+          <% } %>
+          <a href="<%= `/notes/${note._id}` %>">Read More</a>
+        </section>
+      </li>
+    <% }) %>
+  </ul>
 
 </body>
 

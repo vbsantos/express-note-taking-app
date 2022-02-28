@@ -22,4 +22,14 @@ input, button {
 
 p.content-wrapper {
   white-space: pre-line;
+  text-align: justify;
+}
+
+form.form-inline {
+  display: inline;
+}
+
+div.header {
+  display: flex;
+  justify-content: space-between;
 }

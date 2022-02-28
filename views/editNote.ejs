@@ -13,22 +13,24 @@
 </head>
 
 <body>
-  <a href="/notes">
+  <a title="Click to go back to all notes" href="/notes">
     <button>All Notes</button>
   </a>
 
+  <hr>
+  
   <h1>
     Edit Note
   </h1>
 
   <form class="full-width" action="/notes/<%= note.id %>/update" method="POST">
     <label for="title">Title</label>
-    <input oninput="verifyInputs()" type="text" id="title" name="title" autofocus value="<%= note.title %>" />
+    <input oninput="verifyInputs(['title', 'content'], 'submitButton')" type="text" id="title" name="title" autofocus value="<%= note.title %>" />
 
     <label for="content">Content</label>
-    <textarea oninput="verifyInputs()" name="content" id="content" cols="30" rows="40"><%= note.content %></textarea>
+    <textarea oninput="verifyInputs(['title', 'content'], 'submitButton')" name="content" id="content" cols="30" rows="40"><%= note.content %></textarea>
 
-    <button type="submit"  id="submitButton">Edit Note</button>
+    <button disabled title="Click to save this note" type="submit" id="submitButton">Save Note</button>
   </form>
 </body>
 

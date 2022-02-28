@@ -12,39 +12,43 @@
 </head>
 
 <body>
-  <a href="/notes">
-    <button>All Notes</button>
-  </a>
+  <div class="header">
+    <a title="Click to go back to all notes" href="/notes">
+      <button>All Notes</button>
+    </a>
 
-  <div>
-    <h1>
-      <%= note.title %>
-    </h1>
+    <div>
+      <form title="Click to delete this note" class="form-inline" action="/notes/<%= note.id %>/delete" method="POST">
+        <button type="submit">Delete Note</button>
+      </form>
 
-    <p class="content-wrapper">
-      <%= note.content %>
-    </p>
-
-    <p>
-      <small>
-        <strong>Created at:</strong>
-        <%= `${note.createdAt.toLocaleString('pt-BR')}` %>
-        <% if(+new Date(note.createdAt) !== +new Date(note.updatedAt)) { %>
-          <br>
-          <strong>Updated at:</strong>
-          <%= `${note.updatedAt.toLocaleString('pt-BR')}` %>
-        <% } %>
-      </small>
-    </p>
+      <a title="Click to go to note editor" href="/notes/<%= note.id %>/edit">
+        <button>Edit Note</button>
+      </a>
+    </div>
   </div>
 
-  <form action="/notes/<%= note.id %>/delete" method="POST">
-    <button type="submit">Delete Note</button>
-  </form>
+  <hr>
 
-  <a href="/notes/<%= note.id %>/edit">
-    <button>Edit Note</button>
-  </a>
+  <h1>
+    <%= note.title %>
+  </h1>
+
+  <p class="content-wrapper">
+    <%= note.content %>
+  </p>
+
+  <p>
+    <small>
+      <strong>Created at:</strong>
+      <%= `${note.createdAt.toLocaleString('pt-BR')}` %>
+        <% if(+new Date(note.createdAt) !==+new Date(note.updatedAt)) { %>
+          <br>
+          <strong>Updated at:</strong>
+        <%= `${note.updatedAt.toLocaleString('pt-BR')}` %>
+      <% } %>
+    </small>
+  </p>
 
 </body>
 
