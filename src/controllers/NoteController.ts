@@ -1,14 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IDatabase, INote } from './types';
+import { IDatabase, INote } from '../types';
 
-export class Controller {
+export class NoteController {
   private database: IDatabase;
 
   constructor(db: IDatabase) {
     this.database = db;
   }
+
+  // redirect to the main page
+  goToMainPage = (_req: Request, res: Response) => {
+    res.redirect('/notes');
+  };
 
   // index view - renders notes page
   notesView = async (req: Request, res: Response) => {
@@ -69,11 +74,6 @@ export class Controller {
   deleteNote = async (req: Request, res: Response) => {
     const { noteId } = req.params;
     await this.database.deleteNote(noteId);
-    res.redirect('/notes');
-  };
-
-  // redirect to the main page
-  goToMainPage = (_req: Request, res: Response) => {
     res.redirect('/notes');
   };
 }

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import { IDatabase, INote } from '../types';
-import Note from '../models/note';
+import { Note } from '../models';
 
-export class Database implements IDatabase {
+class Database implements IDatabase {
   private mongoDbConnectionString;
 
   private db;
@@ -49,3 +49,5 @@ export class Database implements IDatabase {
     return note._id;
   };
 }
+
+export const database = new Database(process.env.MONGO_URL);
