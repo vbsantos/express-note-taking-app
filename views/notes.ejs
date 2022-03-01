@@ -18,12 +18,12 @@
 
     <div>
       <% if (hasFilter) { %>
-        <form class="form-inline" action="/notes" method="GET">
+        <form class="inline" action="/notes" method="GET">
           <button title="Click to remove search filter" type="submit">Clear Filter</button>
         </form>
       <% } %>
 
-      <form class="form-inline" action="/notes" method="GET">
+      <form class="inline" action="/notes" method="GET">
         <input oninput="verifyEmptyInputs(['search'], 'submitButton')" type="text" id="search" name="search" placeholder="Search in notes">
         <button disabled title="Click to search in notes" type="submit" id="submitButton">Search</button>
       </form>

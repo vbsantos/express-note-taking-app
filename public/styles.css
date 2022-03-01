@@ -23,8 +23,8 @@ div.half-width {
   margin: auto;
 }
 
-form.form-inline {
-  display: inline;
+.inline {
+  display: inline-block;
 }
 
 input, button {
