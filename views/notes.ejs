@@ -24,8 +24,7 @@
       <% } %>
 
       <form class="form-inline" action="/notes" method="GET">
-        <input oninput="verifyInputs(['search'], 'submitButton')" type="text" id="search" name="search"
-          placeholder="Search in notes">
+        <input oninput="verifyEmptyInputs(['search'], 'submitButton')" type="text" id="search" name="search" placeholder="Search in notes">
         <button disabled title="Click to search in notes" type="submit" id="submitButton">Search</button>
       </form>
     </div>
@@ -33,28 +32,30 @@
 
   <hr>
 
-  <h1>
-    Notes
-  </h1>
+  <div class="content">
+    <h1>
+      Notes
+    </h1>
 
-  <!-- List of Notes -->
-  <ul>
-    <% notes.map((note)=> { %>
-      <li id='<%= note._id %>'>
-        <section>
-          <h2>
-            <%= note.title %>
-          </h2>
-          <% if (note.content.length> previewStringSize) { %>
-            <%= note.content.substring(0, previewStringSize).trim() + '…' %>
-          <% } else { %>
-            <%= note.content %>
-          <% } %>
-          <a href="<%= `/notes/${note._id}` %>">Read More</a>
-        </section>
-      </li>
-    <% }) %>
-  </ul>
+    <!-- List of Notes -->
+    <ul>
+      <% notes.map((note)=> { %>
+        <li id='<%= note._id %>'>
+          <section>
+            <h2>
+              <%= note.title %>
+            </h2>
+            <% if (note.content.length> previewStringSize) { %>
+              <%= note.content.substring(0, previewStringSize).trim() + '…' %>
+            <% } else { %>
+              <%= note.content %>
+            <% } %>
+            <a href="<%= `/notes/${note._id}` %>">Read More</a>
+          </section>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 
 </body>
 

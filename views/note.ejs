@@ -6,9 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles.css">
-  <title>
-    <%= note.title %>
-  </title>
+  <title><%= note.title %></title>
 </head>
 
 <body>
@@ -30,25 +28,27 @@
 
   <hr>
 
-  <h1>
-    <%= note.title %>
-  </h1>
+  <div class="content">
+    <h1>
+      <%= note.title %>
+    </h1>
 
-  <p class="content-wrapper">
-    <%= note.content %>
-  </p>
+    <p class="content-wrapper">
+      <%= note.content %>
+    </p>
 
-  <p>
-    <small>
-      <strong>Created at:</strong>
-      <%= `${note.createdAt.toLocaleString('pt-BR')}` %>
-        <% if(+new Date(note.createdAt) !==+new Date(note.updatedAt)) { %>
-          <br>
-          <strong>Updated at:</strong>
-        <%= `${note.updatedAt.toLocaleString('pt-BR')}` %>
-      <% } %>
-    </small>
-  </p>
+    <p>
+      <small>
+        <strong>Created at:</strong>
+        <%= `${note.createdAt.toLocaleString('pt-BR')}` %>
+          <% if(+new Date(note.createdAt) !==+new Date(note.updatedAt)) { %>
+            <br>
+            <strong>Updated at:</strong>
+          <%= `${note.updatedAt.toLocaleString('pt-BR')}` %>
+        <% } %>
+      </small>
+    </p>
+  </div>
 
 </body>
 

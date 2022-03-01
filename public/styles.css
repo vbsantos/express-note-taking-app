@@ -1,8 +1,11 @@
+html, body {
+  padding: 0;
+}
+
 body {
   font-family: monospace;
   max-width: 800px;
   margin: auto;
-  padding: 10px;
 }
 
 ul {
@@ -15,6 +18,15 @@ form.full-width {
   flex-direction: column;
 }
 
+div.half-width {
+  width: 50%;
+  margin: auto;
+}
+
+form.form-inline {
+  display: inline;
+}
+
 input, button {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -25,11 +37,13 @@ p.content-wrapper {
   text-align: justify;
 }
 
-form.form-inline {
-  display: inline;
-}
-
 div.header {
+  margin-top: 6px;
+  padding: 0 10px 0 10px;
   display: flex;
   justify-content: space-between;
+}
+
+div.content {
+  padding: 0 10px 0 10px;
 }

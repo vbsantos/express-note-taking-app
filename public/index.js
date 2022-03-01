@@ -1,5 +1,5 @@
 /* eslint-env browser */
-const verifyInputs = (inputsIds = [], buttonId = '') => {
+const verifyEmptyInputs = (inputsIds = [], buttonId = '') => {
   const button = document.querySelector(`#${buttonId}`);
 
   let setDisable = false;
