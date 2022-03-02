@@ -31,7 +31,7 @@ div.half-width {
   display: inline-block;
 }
 
-input, button {
+input, button, textarea {
   margin-top: 5px;
   margin-bottom: 5px;
 }
