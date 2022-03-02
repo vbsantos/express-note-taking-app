@@ -5,12 +5,12 @@ import {
   Response,
 } from 'express';
 
-export class Middleware {
+class Middleware {
   private sendPageNotFound = (res) => {
     res.status(404).render('error.ejs', {
       error: {
         code: 404,
-        body: 'Error 404: Sorry, page not found 📖',
+        body: 'Error 404: Sorry, page not found 📝',
       },
     });
   };
@@ -39,9 +39,11 @@ export class Middleware {
     res.status(500).render('error.ejs', {
       error: {
         code: 500,
-        body: 'Error 500: Sorry, try again later 📖',
+        body: 'Error 500: Sorry, try again later 📝',
         details: err.toString(),
       },
     });
   };
 }
+
+export const middleware = new Middleware();

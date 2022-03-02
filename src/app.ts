@@ -1,18 +1,16 @@
 import express, { Application } from 'express';
 
-import { Middleware } from './middleware';
-import { noteRouter } from './routes';
-
-const middleware = new Middleware();
+import { middleware } from './middleware';
 
 export const app: Application = express();
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
 // static files
 app.use(express.static('public'));
 
-// routes
+// note routes
 app.use(noteRouter);
 
 // custom middleware
