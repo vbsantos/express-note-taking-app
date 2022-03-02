@@ -13,6 +13,10 @@ ul {
   padding: 0;
 }
 
+textarea {
+  resize: vertical;
+}
+
 form.full-width {
   display: flex;
   flex-direction: column;
