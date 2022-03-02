@@ -11,25 +11,29 @@
 </head>
 
 <body>
-  <a title="Click to go back to all notes" href="/notes">
-    <button>All Notes</button>
-  </a>
+  <div class="header">
+    <a title="Click to go back to all notes" href="/notes">
+      <button>All Notes</button>
+    </a>
+  </div>
 
   <hr>
   
-  <h1>
-    Add Note
-  </h1>
+  <div class="content">
+    <h1>
+      Add Note
+    </h1>
 
-  <form class="full-width" action="/notes/store" method="POST">
-    <label for="title">Title</label>
-    <input oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" type="text" id="title" name="title" autofocus />
+    <form class="full-width" action="/notes/store" method="POST">
+      <label for="title">Title</label>
+      <input oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" type="text" id="title" name="title" autofocus />
 
-    <label for="content">Content</label>
-    <textarea oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" name="content" id="content" cols="30" rows="40"></textarea>
+      <label for="content">Content</label>
+      <textarea oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" name="content" id="content" cols="30" rows="40"></textarea>
 
-    <button disabled title="Click to save this note" disabled type="submit" id="submitButton">Save Note</button>
-  </form>
+      <button disabled title="Click to save this note" disabled type="submit" id="submitButton">Save Note</button>
+    </form>
+  </div>
 </body>
 
 </html>

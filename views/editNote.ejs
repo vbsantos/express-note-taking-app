@@ -11,25 +11,29 @@
 </head>
 
 <body>
-  <a title="Click to go back to all notes" href="/notes">
-    <button>All Notes</button>
-  </a>
+  <div class="header">
+    <a title="Click to go back to all notes" href="/notes">
+      <button>All Notes</button>
+    </a>
+  </div>
 
   <hr>
   
-  <h1>
-    Edit Note
-  </h1>
+  <div class="content">
+    <h1>
+      Edit Note
+    </h1>
 
-  <form class="full-width" action="/notes/<%= note.id %>/update" method="POST">
-    <label for="title">Title</label>
-    <input oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" type="text" id="title" name="title" autofocus value="<%= note.title %>" />
+    <form class="full-width" action="/notes/<%= note.id %>/update" method="POST">
+      <label for="title">Title</label>
+      <input oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" type="text" id="title" name="title" autofocus value="<%= note.title %>" />
 
-    <label for="content">Content</label>
-    <textarea oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" name="content" id="content" cols="30" rows="40"><%= note.content %></textarea>
+      <label for="content">Content</label>
+      <textarea oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" name="content" id="content" cols="30" rows="40"><%= note.content %></textarea>
 
-    <button disabled title="Click to save this note" type="submit" id="submitButton">Save Note</button>
-  </form>
+      <button disabled title="Click to save this note" type="submit" id="submitButton">Save Note</button>
+    </form>
+  </div>
 </body>
 
 </html>
