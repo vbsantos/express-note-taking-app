@@ -41,7 +41,7 @@ p.content-wrapper {
   text-align: justify;
 }
 
-div.header {
+header {
   margin-top: 6px;
   padding: 0 10px 0 10px;
   display: flex;
