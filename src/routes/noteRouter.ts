@@ -9,13 +9,13 @@ noteRouter.get('/', noteController.goToMainPage);
 
 noteRouter.get('/notes', noteController.notesView);
 
-noteRouter.get('/notes/:noteId', noteController.noteByIdView);
+noteRouter.get('/notes/create', noteController.storeNoteView);
 
-noteRouter.get('/notes/add', noteController.storeNoteView);
+noteRouter.post('/notes/create', noteController.storeNote);
 
 noteRouter.get('/notes/:noteId/edit', noteController.updateNoteView);
 
-noteRouter.post('/notes/store', noteController.storeNote);
+noteRouter.get('/notes/:noteId', noteController.noteByIdView);
 
 noteRouter.post('/notes/:noteId/update', noteController.updateNote);
 
