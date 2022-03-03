@@ -53,7 +53,6 @@ export class NoteController {
   storeNote = async (req: Request, res: Response, next: NextFunction) => {
     const { title, content } = req.body;
     if (!title || !content) {
-      // REVIEW is it working?
       return next(new BadRequestError('Required field is missing', {
         note: { title, content },
         at: 'storeNote',
@@ -68,7 +67,6 @@ export class NoteController {
   updateNote = async (req: Request, res: Response, next: NextFunction) => {
     const { title, content } = req.body;
     if (!title || !content) {
-      // REVIEW is it working?
       return next(new BadRequestError('Required field is missing', {
         note: { title, content },
         at: 'editNote',
