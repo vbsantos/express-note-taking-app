@@ -1,5 +1,4 @@
 import {
-  ErrorRequestHandler,
   NextFunction,
   Request,
   Response,
@@ -21,16 +20,6 @@ class Middleware {
     });
   };
 
-  serverErrorLogger = (
-    err: ErrorRequestHandler,
-    _req: Request,
-    _res: Response,
-    next: NextFunction,
-  ) => {
-    console.error('[\x1b[31mSERVER ERROR\x1b[0m]', err); // REVIEW LOGGER
-    next(err);
-  };
-
   pageNotFoundView = (_req: Request, res: Response, next: NextFunction) => {
     next();
 
@@ -46,33 +35,37 @@ class Middleware {
     next();
 
     if (err instanceof BadRequestError) {
-      const badRequestErrorhandlers = {
-        login: () => res.render('login.ejs', {
-          user: err.user,
-          error: err.message,
-        }),
-        register: () => res.render('register.ejs', {
-          user: err.user,
-          error: err.message,
-        }),
-        storeNote: () => res.render('storeNote.ejs', {
-          note: err.note,
-          error: err.message,
-        }),
-        editNote: () => res.render('editNote.ejs', {
-          note: err.note,
-          error: err.message,
-        }),
-      };
+      const local = err.at;
+      const { statusCode } = err;
 
-      badRequestErrorhandlers[err.at]();
+      if (local === 'login') {
+        return res.status(statusCode).render('login.ejs', {
+          user: err.user,
+          error: err.message,
+        });
+      } if (local === 'register') {
+        return res.status(statusCode).render('register.ejs', {
+          user: err.user,
+          error: err.message,
+        });
+      } if (local === 'storeNote') {
+        return res.status(statusCode).render('storeNote.ejs', {
+          note: err.note,
+          error: err.message,
+        });
+      } if (local === 'editNote') {
+        return res.status(statusCode).render('editNote.ejs', {
+          note: err.note,
+          error: err.message,
+        });
+      }
     }
 
     if (err instanceof NotFoundError || err instanceof DatabaseError) {
-      this.sendErrorPage(res, err);
+      return this.sendErrorPage(res, err);
     }
 
-    res.status(500).render('error.ejs', {
+    return res.status(500).render('error.ejs', {
       error: {
         code: 500,
         title: 'Error 500: Sorry, try again later 📝',

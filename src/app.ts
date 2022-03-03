@@ -16,13 +16,14 @@ app.use(express.static('public'));
 // auth routes
 app.use(authRouter);
 
-// auth middleware
+// middleware catch unauthorized access
 app.use(middleware.authenticateToken);
 
 // note routes
 app.use(noteRouter);
 
-// custom middleware
-app.use(middleware.serverErrorLogger);
+// middleware catch invalid routes
 app.use(middleware.pageNotFoundView);
+
+// middleware catch errors
 app.use(middleware.serverErrorHandler);

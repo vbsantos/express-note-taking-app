@@ -31,7 +31,7 @@ export class NoteController {
     const { noteId } = req.params;
     const note: INote = await this.database.getNoteById(noteId);
     if (!note) {
-      return next(new NotFoundError('Note not found'));
+      return next(new NotFoundError('Page not found'));
     }
     return res.render('note.ejs', { note });
   };
@@ -44,7 +44,7 @@ export class NoteController {
     const { noteId } = req.params;
     const note: INote = await this.database.getNoteById(noteId);
     if (!note) {
-      return next(new NotFoundError('Note not found'));
+      return next(new NotFoundError('Page not found'));
     }
     return res.render('editNote.ejs', { note });
   };
