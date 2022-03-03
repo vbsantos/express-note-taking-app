@@ -6,9 +6,8 @@ import {
 } from 'express';
 import JWT from 'jsonwebtoken';
 
-import {
-  BadRequestError, DatabaseError, NotFoundError, UnauthorizedError,
-} from './errors';
+import { BadRequestError, DatabaseError, NotFoundError } from './errors';
+import { CustomErrorRequestHandler, CustomRequest } from './types';
 
 class Middleware {
   private sendErrorPage = (response: Response, error) => {
@@ -39,30 +38,34 @@ class Middleware {
   };
 
   serverErrorHandler = (
-    err: ErrorRequestHandler,
+    err: CustomErrorRequestHandler,
     _req: Request,
     res: Response,
     next: NextFunction,
   ) => {
     next();
 
-    if (err instanceof UnauthorizedError) {
-      res.redirect('/login');
-    }
-
     if (err instanceof BadRequestError) {
-      if (err.at === 'login') {
-        res.render('login.ejs', { user: err.user, error: err.message });
-      }
-      if (err.at === 'register') {
-        res.render('register.ejs', { user: err.user, error: err.message });
-      }
-      if (err.at === 'storeNote') {
-        res.render('storeNote.ejs', { note: err.note, error: err.message });
-      }
-      if (err.at === 'editNote') {
-        res.render('editNote.ejs', { note: err.note, error: err.message });
-      }
+      const badRequestErrorhandlers = {
+        login: () => res.render('login.ejs', {
+          user: err.user,
+          error: err.message,
+        }),
+        register: () => res.render('register.ejs', {
+          user: err.user,
+          error: err.message,
+        }),
+        storeNote: () => res.render('storeNote.ejs', {
+          note: err.note,
+          error: err.message,
+        }),
+        editNote: () => res.render('editNote.ejs', {
+          note: err.note,
+          error: err.message,
+        }),
+      };
+
+      badRequestErrorhandlers[err.at]();
     }
 
     if (err instanceof NotFoundError || err instanceof DatabaseError) {
@@ -78,8 +81,7 @@ class Middleware {
     });
   };
 
-  // FIXME descobrir como adicionar User no tipo Request
-  authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
+  authenticateToken = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { authToken } = req.cookies;
     if (authToken) {
       try {
@@ -90,9 +92,7 @@ class Middleware {
         console.log('[\x1b[31mAUTH ERROR\x1b[0m]', error); // REVIEW LOGGER
       }
     }
-
-    return next(new UnauthorizedError('You do not have permission'));
-    // return res.redirect('/login');
+    return res.redirect('/login');
   };
 }
 

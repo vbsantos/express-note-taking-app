@@ -1,3 +1,12 @@
+import { ErrorRequestHandler, Request } from 'express';
+
+export interface CustomRequest extends Request {
+  [x: string]: any;
+}
+export interface CustomErrorRequestHandler extends ErrorRequestHandler {
+  [x: string]: any;
+}
+
 export interface INote {
   _id: string;
   title: string;
