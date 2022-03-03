@@ -16,11 +16,11 @@
     </a>
 
     <div>
-      <form title="Click to delete this note" class="inline" action="/notes/<%= note.id %>/delete" method="POST">
+      <form title="Click to delete this note" class="inline" action="/notes/<%= note._id %>/delete" method="POST">
         <button type="submit">Delete Note</button>
       </form>
 
-      <a title="Click to go to note editor" href="/notes/<%= note.id %>/edit">
+      <a title="Click to go to note editor" href="/notes/<%= note._id %>/edit">
         <button>Edit Note</button>
       </a>
     </div>

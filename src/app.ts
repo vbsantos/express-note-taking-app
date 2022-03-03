@@ -23,6 +23,6 @@ app.use(middleware.authenticateToken);
 app.use(noteRouter);
 
 // custom middleware
-app.use(middleware.pageNotFoundView);
 app.use(middleware.serverErrorLogger);
+app.use(middleware.pageNotFoundView);
 app.use(middleware.serverErrorHandler);

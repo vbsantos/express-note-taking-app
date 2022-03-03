@@ -15,7 +15,7 @@
       <button>All Notes</button>
     </a>
 
-    <a title="Click to go back" href="/notes/<%= note.id %>">
+    <a title="Click to go back" href="/notes/<%= note._id %>">
       <button>Cancel</button>
     </a>
   </header>
@@ -35,7 +35,7 @@
       </div>
     <% } %>
 
-    <form class="full-width" action="/notes/<%= note.id %>/update" method="POST">
+    <form class="full-width" action="/notes/<%= note._id %>/update" method="POST">
       <label for="title">Title</label>
       <input type="text" id="title" name="title" autofocus value="<%= note.title %>"/>
 

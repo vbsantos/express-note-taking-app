@@ -22,7 +22,7 @@
       </div>
     <% } %>
     
-    <form id="registrationForm" class="full-width" action="/register" method="post">
+    <form id="registrationForm" class="full-width" action="/register" method="POST">
       <label for="name">Name</label>
       <input value="<%= locals.user ? user.name : '' %>" autofocus name="name" id="name" type="text">
       

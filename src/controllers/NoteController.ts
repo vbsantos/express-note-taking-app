@@ -65,14 +65,14 @@ export class NoteController {
 
   // update
   updateNote = async (req: Request, res: Response, next: NextFunction) => {
+    const { noteId } = req.params;
     const { title, content } = req.body;
     if (!title || !content) {
       return next(new BadRequestError('Required field is missing', {
-        note: { title, content },
+        note: { _id: noteId, title, content },
         at: 'editNote',
       }));
     }
-    const { noteId } = req.params;
     await this.database.updateNote(noteId, title, content);
     return res.redirect(`/notes/${noteId}`);
   };
