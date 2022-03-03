@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles.css">
-  <script src="/index.js"></script>
   <title>Edit Note</title>
 </head>
 
@@ -28,14 +27,22 @@
       Edit Note
     </h1>
 
+    <% if (locals.error) { %>
+      <div class="error-message">
+        <strong>
+        <%= error %>
+      </strong>
+      </div>
+    <% } %>
+
     <form class="full-width" action="/notes/<%= note.id %>/update" method="POST">
       <label for="title">Title</label>
-      <input oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" type="text" id="title" name="title" autofocus value="<%= note.title %>" />
+      <input type="text" id="title" name="title" autofocus value="<%= note.title %>"/>
 
       <label for="content">Content</label>
-      <textarea oninput="verifyEmptyInputs(['title', 'content'], 'submitButton')" name="content" id="content" cols="30" rows="40"><%= note.content %></textarea>
+      <textarea name="content" id="content" cols="30" rows="40"><%= note.content %></textarea>
 
-      <button disabled title="Click to save this note" type="submit" id="submitButton">Save Note</button>
+      <button title="Click to save this note" type="submit" id="submitButton">Save Note</button>
     </form>
   </div>
 </body>

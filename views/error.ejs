@@ -6,19 +6,30 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles.css">
-  <title>Error <%= error.code %></title>
+  <title>Error <%= error.code %>
+  </title>
 </head>
 
 <body>
-  <h1>
-    <%= error.body %>
-  </h1>
+  <div class="content">
+    <h1>
+      <%= error.title %>
+    </h1>
 
-  <p><a href="/notes">Go back</a> to the main page.</p>
-  
-  <pre>
-    <code><%= error.details ?? '' %></code>
-  </pre>
+    <% if (error.description) { %>
+      <h3>
+        <%= error.description %>
+      </h3>
+    <% } %>
+    
+    <p><a href="/notes">Go back</a> to the main page.</p>
+
+    <!-- <% if (error.stack) { %>
+      <pre>
+        <code><%= error.stack %></code>
+      </pre>
+    <% } %> -->
+  </div>
 </body>
 
 </html>

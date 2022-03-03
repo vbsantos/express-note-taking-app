@@ -51,3 +51,12 @@ header {
 div.content {
   padding: 0 10px 0 10px;
 }
+
+div.error-message {
+  color: red;
+  border: 1px solid red;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 10px 0 10px 0;
+  text-align: center;
+}
