@@ -52,6 +52,11 @@ div.content {
   padding: 0 10px 0 10px;
 }
 
+div.auth-link {
+  margin-top: 10px;
+  text-align: center;
+}
+
 div.error-message {
   color: red;
   border: 1px solid red;

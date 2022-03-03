@@ -13,9 +13,12 @@
     "docker-run": "docker run --name note-taking-app-container --publish 8080:8080 vb/note-taking-app"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.3",
     "uuid": "^8.3.2"
   },

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Login</title>
+</head>
+
+<body>
+  <div class="half-width">
+
+    <h1>Login</h1>
+
+    <% if (locals.error) { %>
+      <div class="error-message">
+        <strong>
+        <%= error %>
+      </strong>
+      </div>
+    <% } %>
+    
+    <form class="full-width" action="/login" method="post">
+      <label for="email">E-mail</label>
+      <input value="<%= locals.user ? user.email : '' %>" autofocus name="email" id="email" type="email">
+
+      <label for="password">Password</label>
+      <input name="password" id="password" type="password">
+
+      <button id="submitButton" type="submit">Login</button>
+    </form>
+    
+    <div class="auth-link">
+      <a href="/register">Create an Account</a>
+    </div>
+  </div>
+</body>
+
+</html>
