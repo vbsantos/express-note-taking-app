@@ -18,9 +18,9 @@
 
     <div>
       <% if (hasFilter) { %>
-        <form class="inline" action="/notes" method="GET">
-          <button title="Click to remove search filter" type="submit">Clear Filter</button>
-        </form>
+        <a class="inline" title="Click to remove search filter" href="/notes">
+          <button>Clear Filter</button>
+        </a>
       <% } %>
 
       <form class="inline" action="/notes" method="GET">
