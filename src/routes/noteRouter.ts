@@ -13,7 +13,7 @@ noteRouter.get('/notes/:noteId', noteController.noteByIdView);
 
 noteRouter.get('/notes/add', noteController.storeNoteView);
 
-noteRouter.get('/notes/:noteId/edit', noteController.getNoteByIdEditView);
+noteRouter.get('/notes/:noteId/edit', noteController.updateNoteView);
 
 noteRouter.post('/notes/store', noteController.storeNote);
 
