@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 
 import { middleware } from './middleware';
@@ -6,6 +7,7 @@ import { authRouter, noteRouter } from './routes';
 
 export const app: Application = express();
 
+app.use(helmet());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
