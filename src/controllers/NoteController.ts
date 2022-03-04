@@ -13,8 +13,8 @@ export class NoteController {
     this.database = db;
   }
 
-  // redirect to the main page
-  goToMainPage = (_req: Request, res: Response) => res.redirect('/notes');
+  // redirect to the home page
+  redirectToHomePage = (_req: Request, res: Response) => res.redirect('/notes');
 
   // index view - renders notes page
   notesView = async (req: Request, res: Response) => {

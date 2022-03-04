@@ -5,7 +5,7 @@ import { NoteController } from '../controllers';
 const noteRouter: Router = Router();
 const noteController = new NoteController(database);
 
-noteRouter.get('/', noteController.goToMainPage);
+noteRouter.get('/', noteController.redirectToHomePage);
 
 noteRouter.get('/notes', noteController.notesView);
 

@@ -123,7 +123,7 @@ export class AuthController {
     return res.redirect('/');
   };
 
-  // remove cookie authToken and redirect to main page
+  // remove cookie authToken and redirect to root
   logout = async (_req: Request, res: Response) => {
     res.clearCookie('authToken').redirect('/');
   };
