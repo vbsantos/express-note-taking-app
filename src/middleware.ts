@@ -76,16 +76,16 @@ class Middleware {
 
   authenticateToken = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { authToken } = req.cookies;
-    if (authToken) {
-      try {
-        const { user } = await JWT.verify(authToken, process.env.ACCESS_TOKEN_SECRET);
-        req.user = { _id: user._id, name: user.name, email: user.email };
-        return next();
-      } catch (error) {
-        console.log('[\x1b[31mAUTH ERROR\x1b[0m]', error); // REVIEW LOGGER
-      }
+    if (!authToken) {
+      return res.redirect('/login');
     }
-    return res.redirect('/login');
+    try {
+      const { user } = await JWT.verify(authToken, process.env.ACCESS_TOKEN_SECRET);
+      req.user = { _id: user._id, name: user.name, email: user.email };
+      return next();
+    } catch (error) {
+      return res.redirect('/login');
+    }
   };
 }
 
