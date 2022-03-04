@@ -59,7 +59,7 @@ export class NoteController {
     }
     const noteId = uuidv4();
     await this.database.storeNote(noteId, title, content);
-    return res.redirect('/notes');
+    return res.redirect(`/notes/${noteId}`);
   };
 
   // update
