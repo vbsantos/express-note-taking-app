@@ -23,7 +23,7 @@
       <% } %>
 
       <form class="inline" action="/notes" method="GET">
-        <input type="text" id="search" name="search" placeholder="Search in notes" class="small-search-input" value="<%= search %>">
+        <input type="text" id="search" name="search" placeholder="Search notes" class="small-search-input" value="<%= search %>">
         <button title="Click to search in notes" type="submit" id="submitButton">Search</button>
       </form>
 
@@ -39,6 +39,14 @@
     <h1>
       Notes
     </h1>
+
+    <div class="box message">
+      <% if (search) { %>
+        Found <%= notes.length %> results for "<%= search %>"
+      <% } else { %>
+        Hey <%= userFirstName %>! You have <%= notes.length %> notes.
+      <% } %>
+    </div>
 
     <!-- List of Notes -->
     <ul>

@@ -1,10 +1,15 @@
 :root {
   --ft-color: #1f1f1f;
   --bg-color: #f8f8f8;
-  --er-color: #d00000;
+  --er-color: #ff002f;
 }
 
-html, body {
+html {
+  filter: invert(1);
+}
+
+html,
+body {
   padding: 0;
 }
 
@@ -13,7 +18,7 @@ body {
   max-width: 800px;
   margin: auto;
   background-color: var(--bg-color);
-  color: var(--ft-color)
+  color: var(--ft-color);
 }
 
 ul {
@@ -34,16 +39,6 @@ div.half-width {
 
 .inline {
   display: inline-block;
-}
-
-input, button {
-  padding: 0 2px;
-  min-width: 45px;
-}
-
-input, button, textarea {
-  margin: 5px 0 5px 0;
-  padding: 2px;
 }
 
 .form-separated {
@@ -75,21 +70,21 @@ div.auth-link {
   text-align: center;
 }
 
-input.small-search-input {
-  width: 95px;
-}
-
 div.box {
   border-radius: 2px;
   padding: 5px;
   margin: 10px 0 10px 0;
   text-align: center;
-  border: 1px solid var(--ft-color);
 }
 
 div.error-message {
   color: var(--er-color);
   border-color: var(--er-color);
+}
+
+div.message {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 h2.note-title {
@@ -100,4 +95,34 @@ h2.note-title {
 p.note-preview {
   line-break: anywhere;
   margin: 8px 0;
+}
+
+input,
+button {
+  padding: 0 2px;
+  min-width: 45px;
+}
+
+input,
+button,
+textarea {
+  margin: 5px 0 5px 0;
+  padding: 2px;
+}
+
+@media screen and (max-width: 425px) {
+  input.small-search-input {
+    width: 85px;
+  }
+
+  input,
+  button {
+    min-width: 40px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  input.small-search-input {
+    width: 45px;
+  }
 }

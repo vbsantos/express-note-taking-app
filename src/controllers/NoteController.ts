@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { BadRequestError, NotFoundError } from '../errors';
 
-import { IDatabase, INote } from '../types';
+import { CustomRequest, IDatabase, INote } from '../types';
 
 export class NoteController {
   private database: IDatabase;
 
-  private previewStringSize = 175;
+  private previewStringSize = 150;
 
   constructor(db: IDatabase) {
     this.database = db;
@@ -17,12 +17,19 @@ export class NoteController {
   redirectToHomePage = (_req: Request, res: Response) => res.redirect('/notes');
 
   // index view - renders notes page
-  notesView = async (req: Request, res: Response) => {
+  notesView = async (req: CustomRequest, res: Response) => {
+    const { user } = req;
     const { search } = req.query;
+    const userFirstName = user.name.split(' ')[0];
     const notes: INote[] = search
       ? await this.database.getNotesByText(search.toString())
       : await this.database.getNotes();
-    return res.render('notes.ejs', { notes, previewStringSize: this.previewStringSize, search });
+    return res.render('notes.ejs', {
+      userFirstName,
+      notes,
+      previewStringSize: this.previewStringSize,
+      search,
+    });
   };
 
   // show view - renders note page
