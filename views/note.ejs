@@ -12,23 +12,23 @@
 <body>
   <header>
     <a title="Click to go back to all notes" href="/notes">
-      <button>All Notes</button>
+      <button>Go Back</button>
     </a>
 
     <div>
       <form title="Click to delete this note" class="inline" action="/notes/<%= note._id %>/delete" method="POST">
-        <button type="submit">Delete Note</button>
+        <button type="submit">Delete</button>
       </form>
 
       <a title="Click to go to note editor" href="/notes/<%= note._id %>/edit">
-        <button>Edit Note</button>
+        <button>Edit</button>
       </a>
     </div>
   </header>
 
   <hr>
 
-  <div class="content">
+  <div class="page-content">
     <h1>
       <%= note.title %>
     </h1>

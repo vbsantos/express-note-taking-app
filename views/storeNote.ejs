@@ -12,7 +12,7 @@
 <body>
   <header>
     <a title="Click to go back to all notes" href="/notes">
-      <button>All Notes</button>
+      <button>Go Back</button>
     </a>
 
     <a title="Click to go back" href="/notes">
@@ -22,13 +22,13 @@
 
   <hr>
   
-  <div class="content">
+  <div class="page-content">
     <h1>
       Add Note
     </h1>
 
     <% if (locals.error) { %>
-      <div class="error-message">
+      <div class="box error-message">
         <strong>
         <%= error %>
       </strong>
@@ -37,12 +37,12 @@
 
     <form class="full-width" action="/notes/create" method="POST">
       <label for="title">Title</label>
-      <input type="text" id="title" name="title" autofocus value="<%= locals.note ? note.title : '' %>"/>
+      <input class="form-separated" type="text" id="title" name="title" autofocus value="<%= locals.note ? note.title : '' %>"/>
 
       <label for="content">Content</label>
-      <textarea name="content" id="content" cols="30" rows="40"><%= locals.note ? note.content : '' %></textarea>
+      <textarea class="form-separated" name="content" id="content" cols="30" rows="15"><%= locals.note ? note.content : '' %></textarea>
 
-      <button title="Click to save this note" type="submit" id="submitButton">Save Note</button>
+      <button class="form-separated" title="Click to save this note" type="submit" id="submitButton">Save Note</button>
     </form>
   </div>
 </body>

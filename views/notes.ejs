@@ -12,18 +12,18 @@
 <body>
   <header>
     <a title="Click to go to note creation" href="/notes/create">
-      <button>Add Note</button>
+      <button>Add</button>
     </a>
 
     <div>
-      <% if (hasFilter) { %>
+      <% if (search) { %>
         <a class="inline" title="Click to remove search filter" href="/notes">
-          <button>Clear Filter</button>
+          <button>Clear</button>
         </a>
       <% } %>
 
       <form class="inline" action="/notes" method="GET">
-        <input type="text" id="search" name="search" placeholder="Search in notes">
+        <input type="text" id="search" name="search" placeholder="Search in notes" class="small-search-input" value="<%= search %>">
         <button title="Click to search in notes" type="submit" id="submitButton">Search</button>
       </form>
 
@@ -35,7 +35,7 @@
 
   <hr>
 
-  <div class="content">
+  <div class="page-content">
     <h1>
       Notes
     </h1>
@@ -45,15 +45,18 @@
       <% notes.map((note)=> { %>
         <li id='<%= note._id %>'>
           <section>
-            <h2>
+            <h2 class="note-title">
               <%= note.title %>
             </h2>
-            <% if (note.content.length> previewStringSize) { %>
-              <%= note.content.substring(0, previewStringSize).trim() + '…' %>
-            <% } else { %>
-              <%= note.content %>
-            <% } %>
-            <a href="<%= `/notes/${note._id}` %>">Read More</a>
+            <p class="note-preview">
+              <% if (note.content.length> previewStringSize) { %>
+                <%= note.content.substring(0, previewStringSize).trim() + '…' %>
+              <% } else { %>
+                <%= note.content %>
+              <% } %>
+              <br>
+              <a href="<%= `/notes/${note._id}` %>">Read More</a>
+            </p>
           </section>
         </li>
       <% }) %>

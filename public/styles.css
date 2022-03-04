@@ -1,3 +1,9 @@
+:root {
+  --ft-color: #1f1f1f;
+  --bg-color: #f8f8f8;
+  --er-color: #d00000;
+}
+
 html, body {
   padding: 0;
 }
@@ -6,15 +12,13 @@ body {
   font-family: monospace;
   max-width: 800px;
   margin: auto;
+  background-color: var(--bg-color);
+  color: var(--ft-color)
 }
 
 ul {
   list-style: none;
   padding: 0;
-}
-
-textarea {
-  resize: vertical;
 }
 
 form.full-width {
@@ -23,7 +27,8 @@ form.full-width {
 }
 
 div.half-width {
-  width: 50%;
+  padding: 0 25px 0 25px;
+  max-width: 400px;
   margin: auto;
 }
 
@@ -31,9 +36,22 @@ div.half-width {
   display: inline-block;
 }
 
+input, button {
+  padding: 0 2px;
+  min-width: 45px;
+}
+
 input, button, textarea {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px 0 5px 0;
+  padding: 2px;
+}
+
+.form-separated {
+  margin-bottom: 15px;
+}
+
+textarea {
+  resize: vertical;
 }
 
 p.content-wrapper {
@@ -48,7 +66,7 @@ header {
   justify-content: space-between;
 }
 
-div.content {
+div.page-content {
   padding: 0 10px 0 10px;
 }
 
@@ -57,11 +75,29 @@ div.auth-link {
   text-align: center;
 }
 
-div.error-message {
-  color: red;
-  border: 1px solid red;
+input.small-search-input {
+  width: 95px;
+}
+
+div.box {
   border-radius: 2px;
   padding: 5px;
   margin: 10px 0 10px 0;
   text-align: center;
+  border: 1px solid var(--ft-color);
+}
+
+div.error-message {
+  color: var(--er-color);
+  border-color: var(--er-color);
+}
+
+h2.note-title {
+  padding-top: 16px;
+  margin: 8px 0;
+}
+
+p.note-preview {
+  line-break: anywhere;
+  margin: 8px 0;
 }

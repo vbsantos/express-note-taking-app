@@ -19,11 +19,10 @@ export class NoteController {
   // index view - renders notes page
   notesView = async (req: Request, res: Response) => {
     const { search } = req.query;
-    const hasFilter = !!search;
-    const notes: INote[] = hasFilter
+    const notes: INote[] = search
       ? await this.database.getNotesByText(search.toString())
       : await this.database.getNotes();
-    return res.render('notes.ejs', { notes, previewStringSize: this.previewStringSize, hasFilter });
+    return res.render('notes.ejs', { notes, previewStringSize: this.previewStringSize, search });
   };
 
   // show view - renders note page

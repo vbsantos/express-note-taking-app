@@ -15,7 +15,7 @@
     <h1>Register</h1>
 
     <% if (locals.error) { %>
-      <div class="error-message">
+      <div class="box error-message">
         <strong>
         <%= error %>
       </strong>
@@ -24,18 +24,18 @@
     
     <form id="registrationForm" class="full-width" action="/register" method="POST">
       <label for="name">Name</label>
-      <input value="<%= locals.user ? user.name : '' %>" autofocus name="name" id="name" type="text">
+      <input class="form-separated" value="<%= locals.user ? user.name : '' %>" autofocus name="name" id="name" type="text">
       
       <label for="email">E-mail</label>
-      <input value="<%= locals.user ? user.email : '' %>" name="email" id="email" type="email">
+      <input class="form-separated" value="<%= locals.user ? user.email : '' %>" name="email" id="email" type="email">
 
       <label for="password">Password</label>
-      <input name="password" id="password" type="password">
+      <input class="form-separated" name="password" id="password" type="password">
 
       <label for="password2">Password Confirmation</label>
-      <input name="password2" id="password2" type="password">
+      <input class="form-separated" name="password2" id="password2" type="password">
 
-      <button id="buttonSubmit" type="submit">Register</button>
+      <button class="form-separated" id="buttonSubmit" type="submit">Register</button>
     </form>
 
     <div class="auth-link">

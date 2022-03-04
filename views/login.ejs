@@ -15,7 +15,7 @@
     <h1>Login</h1>
 
     <% if (locals.error) { %>
-      <div class="error-message">
+      <div class="box error-message">
         <strong>
         <%= error %>
       </strong>
@@ -24,12 +24,12 @@
     
     <form class="full-width" action="/login" method="POST">
       <label for="email">E-mail</label>
-      <input value="<%= locals.user ? user.email : '' %>" autofocus name="email" id="email" type="email">
+      <input class="form-separated" value="<%= locals.user ? user.email : '' %>" autofocus name="email" id="email" type="email">
 
       <label for="password">Password</label>
-      <input name="password" id="password" type="password">
+      <input class="form-separated" name="password" id="password" type="password">
 
-      <button id="submitButton" type="submit">Login</button>
+      <button class="form-separated" id="submitButton" type="submit">Login</button>
     </form>
     
     <div class="auth-link">
