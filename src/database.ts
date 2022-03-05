@@ -6,8 +6,6 @@ import { DatabaseError } from './errors';
 class Database implements IDatabase {
   private mongoDbConnectionString;
 
-  private db;
-
   constructor(mongoDbConnectionString: string) {
     this.mongoDbConnectionString = mongoDbConnectionString;
     this.connect();
@@ -15,52 +13,72 @@ class Database implements IDatabase {
 
   connect = async (): Promise<void> => {
     try {
-      this.db = mongoose.connection;
       await mongoose.connect(this.mongoDbConnectionString);
     } catch (error) {
       throw new DatabaseError('Database failed to connect');
     }
   };
 
-  getNotes = async (): Promise<INote[]> => {
+  getNotes = async (userId: string): Promise<INote[]> => {
     try {
-      const notes: INote[] = await Note.find().exec();
+      const notes: INote[] = await Note.find().where('userId', userId).exec();
       return notes;
     } catch (error) {
       throw new DatabaseError('Database failed to fetch notes');
     }
   };
 
-  getNoteById = async (noteId: string): Promise<INote> => {
+  getNoteById = async (userId: string, noteId: string): Promise<INote> => {
     try {
-      const note: INote = await Note.findById(noteId).exec();
+      const note: INote = await Note.findById(noteId).where('userId', userId).exec();
       return note;
     } catch (error) {
       throw new DatabaseError('Database failed to fetch note');
     }
   };
 
-  updateNote = async (noteId: string, title: string, content: string): Promise<string> => {
+  updateNote = async (
+    userId: string,
+    noteId: string,
+    title: string,
+    content: string,
+  ): Promise<string> => {
     try {
-      const note: INote = await Note.findByIdAndUpdate(noteId, { title, content }).exec();
+      const note: INote = await Note.findOneAndUpdate({
+        _id: noteId,
+        userId,
+      }, {
+        title,
+        content,
+      }).exec();
       return note._id;
     } catch (error) {
       throw new DatabaseError('Database failed to update note');
     }
   };
 
-  getNotesByText = async (search: string): Promise<INote[]> => {
+  getNotesByText = async (userId: string, search: string): Promise<INote[]> => {
     try {
-      const notes: INote[] = await Note.find({ $text: { $search: search } }).exec();
+      const notes: INote[] = await Note.find({ $text: { $search: search } }).where('userId', userId).exec();
       return notes;
     } catch (error) {
       throw new DatabaseError('Database failed to search notes');
     }
   };
 
-  storeNote = async (noteId: string, title: string, content: string): Promise<INote> => {
+  storeNote = async (
+    userId: string,
+    noteId: string,
+    title: string,
+    content: string,
+  ): Promise<INote> => {
     try {
-      const newNote: INote = new Note({ _id: noteId, title, content });
+      const newNote: INote = new Note({
+        _id: noteId,
+        title,
+        content,
+        userId,
+      });
       const note = await newNote.save();
       return note;
     } catch (error) {
@@ -68,9 +86,12 @@ class Database implements IDatabase {
     }
   };
 
-  deleteNote = async (noteId: string): Promise<string> => {
+  deleteNote = async (userId: string, noteId: string): Promise<string> => {
     try {
-      const note: INote = await Note.findOneAndDelete({ _id: noteId }).exec();
+      const note: INote = await Note.findOneAndDelete({
+        _id: noteId,
+        userId,
+      }).exec();
       return note._id;
     } catch (error) {
       throw new DatabaseError('Database failed to delete note');
@@ -85,7 +106,10 @@ class Database implements IDatabase {
   ): Promise<IUser> => {
     try {
       const newUser: IUser = new User({
-        _id: userId, name, email, password: hashedPassword,
+        _id: userId,
+        name,
+        email,
+        password: hashedPassword,
       });
       const user = await newUser.save();
       return user;
@@ -96,7 +120,9 @@ class Database implements IDatabase {
 
   getUserByEmail = async (email: string): Promise<IUser> => {
     try {
-      const user: IUser = await User.findOne({ email }).exec();
+      const user: IUser = await User.findOne({
+        email,
+      }).exec();
       return user;
     } catch (error) {
       throw new DatabaseError('Database failed to fetch user');

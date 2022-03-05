@@ -18,14 +18,12 @@ export class NoteController {
 
   // index view - renders notes page
   notesView = async (req: CustomRequest, res: Response) => {
-    const { user } = req;
     const { search } = req.query;
-    const userFirstName = user.name.split(' ')[0];
     const notes: INote[] = search
-      ? await this.database.getNotesByText(search.toString())
-      : await this.database.getNotes();
+      ? await this.database.getNotesByText(req.user._id, search.toString())
+      : await this.database.getNotes(req.user._id);
     return res.render('notes.ejs', {
-      userFirstName,
+      userFirstName: req.user.name.split(' ')[0],
       notes,
       previewStringSize: this.previewStringSize,
       search,
@@ -33,9 +31,9 @@ export class NoteController {
   };
 
   // show view - renders note page
-  noteByIdView = async (req: Request, res: Response, next: NextFunction) => {
+  noteByIdView = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
-    const note: INote = await this.database.getNoteById(noteId);
+    const note: INote = await this.database.getNoteById(req.user._id, noteId);
     if (!note) {
       return next(new NotFoundError('Page not found'));
     }
@@ -46,9 +44,9 @@ export class NoteController {
   storeNoteView = (_req: Request, res: Response) => res.render('storeNote.ejs');
 
   // edit view - renders a page with a form for editing a note
-  updateNoteView = async (req: Request, res: Response, next: NextFunction) => {
+  updateNoteView = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
-    const note: INote = await this.database.getNoteById(noteId);
+    const note: INote = await this.database.getNoteById(req.user._id, noteId);
     if (!note) {
       return next(new NotFoundError('Page not found'));
     }
@@ -56,7 +54,7 @@ export class NoteController {
   };
 
   // store
-  storeNote = async (req: Request, res: Response, next: NextFunction) => {
+  storeNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { title, content } = req.body;
     if (!title || !content) {
       return next(new BadRequestError('Required field is missing', {
@@ -65,12 +63,12 @@ export class NoteController {
       }));
     }
     const noteId = uuidv4();
-    await this.database.storeNote(noteId, title, content);
+    await this.database.storeNote(req.user._id, noteId, title, content);
     return res.redirect(`/notes/${noteId}`);
   };
 
   // update
-  updateNote = async (req: Request, res: Response, next: NextFunction) => {
+  updateNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
     const { title, content } = req.body;
     if (!title || !content) {
@@ -79,14 +77,14 @@ export class NoteController {
         at: 'editNote',
       }));
     }
-    await this.database.updateNote(noteId, title, content);
+    await this.database.updateNote(req.user._id, noteId, title, content);
     return res.redirect(`/notes/${noteId}`);
   };
 
   // delete
-  deleteNote = async (req: Request, res: Response) => {
+  deleteNote = async (req: CustomRequest, res: Response) => {
     const { noteId } = req.params;
-    await this.database.deleteNote(noteId);
+    await this.database.deleteNote(req.user._id, noteId);
     return res.redirect('/notes');
   };
 }

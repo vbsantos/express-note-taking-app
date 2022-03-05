@@ -8,6 +8,10 @@ html {
   filter: invert(1);
 }
 
+.emoji {
+  filter: invert(1);
+}
+
 html,
 body {
   padding: 0;

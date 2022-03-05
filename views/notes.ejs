@@ -42,9 +42,13 @@
 
     <div class="box message">
       <% if (search) { %>
-        Found <%= notes.length %> results for "<%= search %>"
+        <small>Found <strong><%= notes.length %></strong> results for "<%= search %>"</small>
       <% } else { %>
-        Hey <%= userFirstName %>! You have <%= notes.length %> notes.
+        <small>Hey <%= userFirstName %>! You have <strong><%= notes.length %></strong> note<%= notes.length === 0 ? 's' : '' %>.</small>
+        <% if (notes.length === 0) { %>
+          <br>
+          <small>Click <strong>Add</strong> to start <span class="emoji">📝</span></small>
+        <% } %>
       <% } %>
     </div>
 

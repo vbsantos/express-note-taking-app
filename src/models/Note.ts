@@ -14,6 +14,10 @@ const Schema = new mongoose.Schema(
       type: String,
       required: [true, 'Note need to have a body'],
     },
+    userId: {
+      type: String,
+      ref: 'User',
+    },
   },
   {
     collection: 'Notes',

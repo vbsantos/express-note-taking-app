@@ -13,6 +13,7 @@ export interface INote {
   content: string;
   createdAt: number;
   updatedAt: number;
+  userId: string;
   [x: string]: any;
 }
 
@@ -27,12 +28,12 @@ export interface IUser {
 }
 
 export interface IDatabase {
-  updateNote(noteId: string, title: string, content: string): Promise<string>,
-  getNotesByText(search: string): Promise<INote[]>,
-  getNotes(): Promise<INote[]>,
-  getNoteById(noteId: string): Promise<INote>,
-  storeNote(noteId: string, title: string, content: string): Promise<INote>,
-  deleteNote(noteId: string): Promise<string>,
+  updateNote(userId: string, noteId: string, title: string, content: string): Promise<string>,
+  getNotesByText(userId: string, search: string): Promise<INote[]>,
+  getNotes(userId: string): Promise<INote[]>,
+  getNoteById(userId: string, noteId: string): Promise<INote>,
+  storeNote(userId: string, noteId: string, title: string, content: string): Promise<INote>,
+  deleteNote(userId: string, noteId: string): Promise<string>,
   storeUser(userId: string, name: string, email: string, password: string): Promise<IUser>,
   getUserByEmail(email: string): Promise<IUser>,
 }
