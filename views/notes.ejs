@@ -2,10 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/styles.css">
+  <%- include('inc/head') %>
   <title>Notes</title>
 </head>
 
@@ -36,9 +33,7 @@
   <hr>
 
   <div class="page-content">
-    <h1>
-      Notes
-    </h1>
+    <h1>Notes</h1>
 
     <div class="box message">
       <small>
@@ -48,7 +43,7 @@
           Hey <%= userFirstName %>! You have <strong><%= notes.length %></strong> note<%= notes.length !== 1 ? 's' : '' %>.
           <% if (notes.length === 0) { %>
             <br>
-            Click <strong>Add</strong> to start <span class="emoji">📝</span>
+            Click <strong>Add</strong> to start 📝
           <% } %>
         <% } %>
       </small>
@@ -77,6 +72,7 @@
     </ul>
   </div>
 
+  <%- include('inc/footer') %>
 </body>
 
 </html>

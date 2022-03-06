@@ -2,10 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/styles.css">
+  <%- include('inc/head') %>
   <title>Add Note</title>
 </head>
 
@@ -23,17 +20,9 @@
   <hr>
   
   <div class="page-content">
-    <h1>
-      Add Note
-    </h1>
+    <h1>Create Note</h1>
 
-    <% if (locals.error) { %>
-      <div class="box error-message">
-        <strong>
-          <%= error %>
-        </strong>
-      </div>
-    <% } %>
+    <%- include('inc/form-error.ejs') %>
 
     <form class="full-width" action="/notes/create" method="POST">
       <label for="title">Title</label>
@@ -45,6 +34,8 @@
       <button class="form-separated" title="Click to save this note" type="submit" id="submitButton">Save Note</button>
     </form>
   </div>
+
+  <%- include('inc/footer') %>
 </body>
 
 </html>

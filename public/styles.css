@@ -2,14 +2,7 @@
   --ft-color: #1f1f1f;
   --bg-color: #f8f8f8;
   --er-color: #ff002f;
-}
-
-html {
-  filter: invert(1);
-}
-
-.emoji {
-  filter: invert(1);
+  --lk-color: #4c00ff;
 }
 
 html,
@@ -91,6 +84,12 @@ div.message {
   padding-right: 20px;
 }
 
+div.footer-message {
+  padding-left: 20px;
+  padding-right: 20px;
+  filter: opacity(0.5);
+}
+
 h2.note-title {
   padding-top: 16px;
   margin: 8px 0;
@@ -112,6 +111,19 @@ button,
 textarea {
   margin: 5px 0 5px 0;
   padding: 2px;
+}
+
+footer {
+  padding-top: 20px;
+}
+
+a:link, a:visited {
+  color: var(--lk-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 425px) {
