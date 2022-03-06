@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 
-import { middleware } from './middleware';
+import { authMiddleware, errorMiddleware } from './middlewares';
 import { authRouter, noteRouter } from './routes';
 
 export const app: Application = express();
@@ -19,13 +19,13 @@ app.use(express.static('public'));
 app.use(authRouter);
 
 // middleware catch unauthorized access
-app.use(middleware.authenticateToken);
+app.use(authMiddleware.authenticateToken);
 
 // note routes
 app.use(noteRouter);
 
 // middleware catch invalid routes
-app.use(middleware.pageNotFoundView);
+app.use(errorMiddleware.pageNotFoundView);
 
 // middleware catch errors
-app.use(middleware.serverErrorHandler);
+app.use(errorMiddleware.serverErrorHandler);

@@ -1,14 +1,9 @@
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
-import JWT from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
 
-import { BadRequestError, DatabaseError, NotFoundError } from './errors';
-import { CustomErrorRequestHandler, CustomRequest } from './types';
+import { BadRequestError, DatabaseError, NotFoundError } from '../errors';
+import { CustomErrorRequestHandler } from '../types';
 
-class Middleware {
+class ErrorMiddleware {
   private sendErrorPage = (response: Response, error) => {
     response.status(error.statusCode).render(error.view, {
       error: {
@@ -43,17 +38,20 @@ class Middleware {
           user: err.user,
           error: err.message,
         });
-      } if (local === 'register') {
+      }
+      if (local === 'register') {
         return res.status(statusCode).render('register.ejs', {
           user: err.user,
           error: err.message,
         });
-      } if (local === 'storeNote') {
+      }
+      if (local === 'storeNote') {
         return res.status(statusCode).render('storeNote.ejs', {
           note: err.note,
           error: err.message,
         });
-      } if (local === 'editNote') {
+      }
+      if (local === 'editNote') {
         return res.status(statusCode).render('editNote.ejs', {
           note: err.note,
           error: err.message,
@@ -73,20 +71,6 @@ class Middleware {
       },
     });
   };
-
-  authenticateToken = async (req: CustomRequest, res: Response, next: NextFunction) => {
-    const { authToken } = req.cookies;
-    if (!authToken) {
-      return res.redirect('/login');
-    }
-    try {
-      const { user } = await JWT.verify(authToken, process.env.ACCESS_TOKEN_SECRET);
-      req.user = { _id: user._id, name: user.name, email: user.email };
-      return next();
-    } catch (error) {
-      return res.redirect('/login');
-    }
-  };
 }
 
-export const middleware = new Middleware();
+export const errorMiddleware = new ErrorMiddleware();
