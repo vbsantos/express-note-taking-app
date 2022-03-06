@@ -20,8 +20,7 @@
       <% } %>
 
       <form class="inline" action="/notes" method="GET">
-        <input type="text" id="search" name="search" placeholder="Search notes" class="small-search-input" value="<%= search %>">
-        <button title="Click to search in notes" type="submit" id="submitButton">Search</button>
+        <input type="search" id="search" name="search" placeholder="Search notes" class="small-search-input" value="<%= search %>">
       </form>
 
       <a class="inline" title="Click to logout" href="/logout">
