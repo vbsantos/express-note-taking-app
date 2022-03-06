@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/server.ts",
+    "prebuild": "rm -rf build/*",
     "build": "yarn tsc",
     "start": "node build/server.js",
     "docker-build": "docker build . --tag vb/note-taking-app",
