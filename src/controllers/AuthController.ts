@@ -4,7 +4,7 @@ import JWT from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import { IDatabase, IUser } from '../types';
-import { BadRequestError } from '../errors/BadRequestError';
+import { BadRequestError, DatabaseError } from '../errors';
 
 export class AuthController {
   private database: IDatabase;
@@ -59,7 +59,14 @@ export class AuthController {
       }));
     }
 
-    const emailAlreadyRegistred = !!await this.database.getUserByEmail(email);
+    let emailAlreadyRegistred: boolean;
+
+    try {
+      emailAlreadyRegistred = !!await this.database.getUserByEmail(email);
+    } catch (error) {
+      next(new DatabaseError('Database failed to fetch user'));
+    }
+
     if (emailAlreadyRegistred) {
       return next(new BadRequestError('Email is already registred', {
         user: { name, email },
@@ -69,7 +76,13 @@ export class AuthController {
 
     const generatedId = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user: IUser = await this.database.storeUser(generatedId, name, email, hashedPassword);
+
+    let user: IUser;
+    try {
+      user = await this.database.storeUser(generatedId, name, email, hashedPassword);
+    } catch (error) {
+      next(new DatabaseError('Database failed to store user'));
+    }
 
     // generate jwt
     const token = JWT.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
@@ -95,7 +108,13 @@ export class AuthController {
       }));
     }
 
-    const user = await this.database.getUserByEmail(email);
+    let user: IUser;
+    try {
+      user = await this.database.getUserByEmail(email);
+    } catch (error) {
+      next(new DatabaseError('Database failed to fetch user'));
+    }
+
     if (!user) {
       return next(new BadRequestError('Email is not registred', {
         user: { email },

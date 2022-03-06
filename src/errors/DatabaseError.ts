@@ -1,7 +1,7 @@
-import { ApplicationError } from './ApplicationError';
+import { UserFacingError } from './UserFacingError';
 
-export class DatabaseError extends ApplicationError {
+export class DatabaseError extends UserFacingError {
   constructor(message, options = {}) {
-    super(500, message, options);
+    super(500, 'error.ejs', message, options);
   }
 }
