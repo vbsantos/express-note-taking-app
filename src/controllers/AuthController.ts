@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 
 import { IDatabase, IUser } from '../types';
 import { BadRequestError, DatabaseError } from '../errors';
+import { registrationSchema, loginSchema } from '../validation';
 
 export class AuthController {
   private database: IDatabase;
@@ -14,11 +15,6 @@ export class AuthController {
   constructor(db: IDatabase) {
     this.database = db;
   }
-
-  private validateEmail = (email: string) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return String(email).toLowerCase().match(re);
-  };
 
   // register view - renders user registration page
   registerView = async (_req: Request, res: Response) => {
@@ -32,38 +28,20 @@ export class AuthController {
 
   // store
   register = async (req: Request, res: Response, next: NextFunction) => {
-    const { name }: { name: string } = req.body;
-    const { email }: { email: string } = req.body;
-    const { password }: { password: string } = req.body;
-    const { password2 }: { password2: string } = req.body;
+    const { error, value } = registrationSchema.validate(req.body);
+    const { name, email, password } = value;
 
-    if (name === '' || email === '' || password === '' || password2 === '') {
-      return next(new BadRequestError('Required field is missing', {
-        user: { name, email },
-        at: 'register',
-      }));
-    }
-
-    if (password !== password2) {
-      return next(new BadRequestError('Passwords do not match', {
-        user: { name, email },
-        at: 'register',
-      }));
-    }
-
-    const isValidEmail = this.validateEmail(email);
-    if (!isValidEmail) {
-      return next(new BadRequestError('Email is invalid', {
+    if (error) {
+      return next(new BadRequestError(error.details[0]?.message, {
         user: { name, email },
         at: 'register',
       }));
     }
 
     let emailAlreadyRegistred: boolean;
-
     try {
       emailAlreadyRegistred = !!await this.database.getUserByEmail(email);
-    } catch (error) {
+    } catch (_error) {
       next(new DatabaseError('Database failed to fetch user'));
     }
 
@@ -80,7 +58,7 @@ export class AuthController {
     let user: IUser;
     try {
       user = await this.database.storeUser(generatedId, name, email, hashedPassword);
-    } catch (error) {
+    } catch (_error) {
       next(new DatabaseError('Database failed to store user'));
     }
 
@@ -98,11 +76,11 @@ export class AuthController {
 
   // show
   login = async (req: Request, res: Response, next: NextFunction) => {
-    const { email }: { email: string } = req.body;
-    const { password }: { password: string } = req.body;
+    const { error, value } = loginSchema.validate(req.body);
+    const { email, password } = value;
 
-    if (email === '' || password === '') {
-      return next(new BadRequestError('Required field is missing', {
+    if (error) {
+      return next(new BadRequestError(error.details[0]?.message, {
         user: { email },
         at: 'login',
       }));
@@ -111,7 +89,7 @@ export class AuthController {
     let user: IUser;
     try {
       user = await this.database.getUserByEmail(email);
-    } catch (error) {
+    } catch (_error) {
       next(new DatabaseError('Database failed to fetch user'));
     }
 

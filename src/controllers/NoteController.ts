@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { BadRequestError, DatabaseError, NotFoundError } from '../errors';
 import { CustomRequest, IDatabase, INote } from '../types';
+import { noteSchema } from '../validation';
 
 export class NoteController {
   private database: IDatabase;
@@ -25,13 +26,13 @@ export class NoteController {
     if (search) {
       try {
         notes = await this.database.getNotesByText(userId, search.toString());
-      } catch (error) {
+      } catch (_error) {
         return next(new DatabaseError('Database failed to fetch notes'));
       }
     } else {
       try {
         notes = await this.database.getNotes(userId);
-      } catch (error) {
+      } catch (_error) {
         return next(new DatabaseError('Database failed to search notes'));
       }
     }
@@ -47,10 +48,11 @@ export class NoteController {
   // show view - renders note page
   noteByIdView = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
+
     let note: INote;
     try {
       note = await this.database.getNoteById(req.user._id, noteId);
-    } catch (error) {
+    } catch (_error) {
       return next(new DatabaseError('Database failed to fetch note'));
     }
     if (!note) {
@@ -69,7 +71,7 @@ export class NoteController {
     let note: INote;
     try {
       note = await this.database.getNoteById(req.user._id, noteId);
-    } catch (error) {
+    } catch (_error) {
       return next(new DatabaseError('Database failed to fetch note'));
     }
 
@@ -82,10 +84,11 @@ export class NoteController {
 
   // store
   storeNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
-    const { title, content } = req.body;
+    const { error, value } = noteSchema.validate(req.body);
+    const { title, content } = value;
 
-    if (!title || !content) {
-      return next(new BadRequestError('Required field is missing', {
+    if (error) {
+      return next(new BadRequestError(error.details[0]?.message, {
         note: { title, content },
         at: 'storeNote',
       }));
@@ -95,7 +98,7 @@ export class NoteController {
 
     try {
       await this.database.storeNote(req.user._id, noteId, title, content);
-    } catch (error) {
+    } catch (_error) {
       return next(new DatabaseError('Database failed to store note'));
     }
 
@@ -105,10 +108,11 @@ export class NoteController {
   // update
   updateNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
-    const { title, content } = req.body;
+    const { error, value } = noteSchema.validate(req.body);
+    const { title, content } = value;
 
-    if (!title || !content) {
-      return next(new BadRequestError('Required field is missing', {
+    if (error) {
+      return next(new BadRequestError(error.details[0]?.message, {
         note: { _id: noteId, title, content },
         at: 'editNote',
       }));
@@ -116,7 +120,7 @@ export class NoteController {
 
     try {
       await this.database.updateNote(req.user._id, noteId, title, content);
-    } catch (error) {
+    } catch (_error) {
       return next(new DatabaseError('Database failed to update note'));
     }
 
@@ -129,7 +133,7 @@ export class NoteController {
 
     try {
       await this.database.deleteNote(req.user._id, noteId);
-    } catch (error) {
+    } catch (_error) {
       return next(new DatabaseError('Database failed to delete note'));
     }
 
