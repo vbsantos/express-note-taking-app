@@ -64,8 +64,9 @@
                 <%= note.content %>
               <% } %>
               <br>
-              <a href="<%= `/notes/${note._id}` %>">Read More</a>
             </p>
+
+            <small><a href="<%= `/notes/${note._id}` %>">Read More</a></small>
           </section>
         </li>
       <% }) %>
