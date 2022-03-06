@@ -28,12 +28,20 @@ export interface IUser {
 }
 
 export interface IDatabase {
-  updateNote(userId: string, noteId: string, title: string, content: string): Promise<string>,
-  getNotesByText(userId: string, search: string): Promise<INote[]>,
-  getNotes(userId: string): Promise<INote[]>,
-  getNoteById(userId: string, noteId: string): Promise<INote>,
-  storeNote(userId: string, noteId: string, title: string, content: string): Promise<INote>,
-  deleteNote(userId: string, noteId: string): Promise<string>,
-  storeUser(userId: string, name: string, email: string, password: string): Promise<IUser>,
-  getUserByEmail(email: string): Promise<IUser>,
+  getNotes(userId: string):
+    Promise<INote[]>,
+  getNotesByText(userId: string, search: string):
+    Promise<INote[]>,
+  updateNote(userId: string, noteId: string, title: string, content: string):
+    Promise<string>,
+  getNoteById(userId: string, noteId: string):
+    Promise<INote>,
+  storeNote(userId: string, noteId: string, title: string, content: string):
+    Promise<INote>,
+  deleteNote(userId: string, noteId: string):
+    Promise<string>,
+  storeUser(userId: string, name: string, email: string, password: string):
+    Promise<IUser>,
+  getUserByEmail(email: string):
+    Promise<IUser>,
 }

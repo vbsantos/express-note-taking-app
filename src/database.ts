@@ -28,6 +28,15 @@ class Database implements IDatabase {
     }
   };
 
+  getNotesByText = async (userId: string, search: string): Promise<INote[]> => {
+    try {
+      const notes: INote[] = await Note.find({ $text: { $search: search } }).where('userId', userId).exec();
+      return notes;
+    } catch (error) {
+      throw new DatabaseError('Database failed to search notes');
+    }
+  };
+
   getNoteById = async (userId: string, noteId: string): Promise<INote> => {
     try {
       const note: INote = await Note.findById(noteId).where('userId', userId).exec();
@@ -54,15 +63,6 @@ class Database implements IDatabase {
       return note._id;
     } catch (error) {
       throw new DatabaseError('Database failed to update note');
-    }
-  };
-
-  getNotesByText = async (userId: string, search: string): Promise<INote[]> => {
-    try {
-      const notes: INote[] = await Note.find({ $text: { $search: search } }).where('userId', userId).exec();
-      return notes;
-    } catch (error) {
-      throw new DatabaseError('Database failed to search notes');
     }
   };
 

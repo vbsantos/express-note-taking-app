@@ -19,9 +19,16 @@ export class NoteController {
   // index view - renders notes page
   notesView = async (req: CustomRequest, res: Response) => {
     const { search } = req.query;
+
     const notes: INote[] = search
-      ? await this.database.getNotesByText(req.user._id, search.toString())
-      : await this.database.getNotes(req.user._id);
+      ? await this.database.getNotesByText(
+        req.user._id,
+        search.toString(),
+      )
+      : await this.database.getNotes(
+        req.user._id,
+      );
+
     return res.render('notes.ejs', {
       userFirstName: req.user.name.split(' ')[0],
       notes,

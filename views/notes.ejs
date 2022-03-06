@@ -41,15 +41,17 @@
     </h1>
 
     <div class="box message">
-      <% if (search) { %>
-        <small>Found <strong><%= notes.length %></strong> results for "<%= search %>"</small>
-      <% } else { %>
-        <small>Hey <%= userFirstName %>! You have <strong><%= notes.length %></strong> note<%= notes.length === 0 ? 's' : '' %>.</small>
-        <% if (notes.length === 0) { %>
-          <br>
-          <small>Click <strong>Add</strong> to start <span class="emoji">📝</span></small>
+      <small>
+        <% if (search) { %>
+          Found <strong><%= notes.length %></strong> results for "<%= search %>"
+        <% } else { %>
+          Hey <%= userFirstName %>! You have <strong><%= notes.length %></strong> note<%= notes.length !== 1 ? 's' : '' %>.
+          <% if (notes.length === 0) { %>
+            <br>
+            Click <strong>Add</strong> to start <span class="emoji">📝</span>
+          <% } %>
         <% } %>
-      <% } %>
+      </small>
     </div>
 
     <!-- List of Notes -->
