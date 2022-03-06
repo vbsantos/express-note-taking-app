@@ -28,18 +28,13 @@
   <div class="page-content">
     <h1><%= note.title %></h1>
 
-    <p class="content-wrapper">
-      <%= note.content %>
-    </p>
+    <p class="content-wrapper"><%= note.content %></p>
 
     <p>
       <small>
-        <strong>Created at:</strong>
-        <%= `${note.createdAt.toLocaleString('pt-BR')}` %>
-          <% if(+new Date(note.createdAt) !==+new Date(note.updatedAt)) { %>
-            <br>
-            <strong>Updated at:</strong>
-          <%= `${note.updatedAt.toLocaleString('pt-BR')}` %>
+        <strong>Created at:</strong> <%= `${note.createdAt.toLocaleString('pt-BR')}` %>
+        <% if(+new Date(note.createdAt) !==+new Date(note.updatedAt)) { %>
+          <br><strong>Updated at:</strong> <%= `${note.updatedAt.toLocaleString('pt-BR')}` %>
         <% } %>
       </small>
     </p>
