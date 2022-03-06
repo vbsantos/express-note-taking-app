@@ -18,12 +18,12 @@ export class AuthController {
 
   // register view - renders user registration page
   registerView = async (_req: Request, res: Response) => {
-    res.render('register.ejs', { editMode: false });
+    res.render('register.ejs');
   };
 
   // login view - renders user login page
   loginView = async (_req: Request, res: Response) => {
-    res.render('login.ejs', { editMode: false });
+    res.render('login.ejs');
   };
 
   // store
