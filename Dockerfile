@@ -5,5 +5,6 @@ EXPOSE 8080
 
 COPY . .
 RUN yarn && yarn build
+RUN yarn global add forever
 
-CMD yarn start
+CMD forever build/server.js
