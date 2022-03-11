@@ -1,6 +1,8 @@
 import Joi from 'joi';
 
 export const noteSchema = Joi.object({
-  title: Joi.string().min(3).max(50).required(),
-  content: Joi.string().min(3).max(2000).required(),
+  title: Joi.string().min(3).max(100).label('Title')
+    .required(),
+  content: Joi.string().min(3).label('Content')
+    .required(),
 });

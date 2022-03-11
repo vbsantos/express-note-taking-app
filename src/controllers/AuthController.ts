@@ -28,11 +28,16 @@ export class AuthController {
 
   // store
   register = async (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = registrationSchema.validate(req.body);
-    const { name, email, password } = value;
+    const {
+      name, email, password, password2,
+    } = req.body;
 
+    const { error } = registrationSchema.validate({
+      name, email, password, password2,
+    });
     if (error) {
-      return next(new BadRequestError(error.details[0]?.message, {
+      const errorMessage = error.details[0]?.message;
+      return next(new BadRequestError(errorMessage, {
         user: { name, email },
         at: 'register',
       }));
@@ -76,11 +81,12 @@ export class AuthController {
 
   // show
   login = async (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = loginSchema.validate(req.body);
-    const { email, password } = value;
+    const { email, password } = req.body;
 
+    const { error } = loginSchema.validate({ email, password });
     if (error) {
-      return next(new BadRequestError(error.details[0]?.message, {
+      const errorMessage = error.details[0]?.message;
+      return next(new BadRequestError(errorMessage, {
         user: { email },
         at: 'login',
       }));

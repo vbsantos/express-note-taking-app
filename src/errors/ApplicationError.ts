@@ -2,7 +2,8 @@ export class ApplicationError extends Error {
   public statusCode;
 
   constructor(statusCode, message, options = {}) {
-    super(message);
+    const formatedMessage = message.charAt(0).toUpperCase() + message.slice(1);
+    super(formatedMessage);
     this.statusCode = statusCode;
 
     Object.keys(options).forEach((option) => {

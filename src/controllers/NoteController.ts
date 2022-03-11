@@ -84,11 +84,12 @@ export class NoteController {
 
   // store
   storeNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
-    const { error, value } = noteSchema.validate(req.body);
-    const { title, content } = value;
+    const { title, content } = req.body;
 
+    const { error } = noteSchema.validate({ title, content });
     if (error) {
-      return next(new BadRequestError(error.details[0]?.message, {
+      const errorMessage = error.details[0]?.message;
+      return next(new BadRequestError(errorMessage, {
         note: { title, content },
         at: 'storeNote',
       }));
@@ -108,11 +109,12 @@ export class NoteController {
   // update
   updateNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const { noteId } = req.params;
-    const { error, value } = noteSchema.validate(req.body);
-    const { title, content } = value;
+    const { title, content } = req.body;
 
+    const { error } = noteSchema.validate({ title, content });
     if (error) {
-      return next(new BadRequestError(error.details[0]?.message, {
+      const errorMessage = error.details[0]?.message;
+      return next(new BadRequestError(errorMessage, {
         note: { _id: noteId, title, content },
         at: 'editNote',
       }));
