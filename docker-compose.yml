@@ -2,7 +2,7 @@ version: "3"
 
 services:
   mongo:
-    image: mongo
+    image: mongo:latest
     container_name: note-taking-app-mongodb-container
     restart: unless-stopped
     volumes:
