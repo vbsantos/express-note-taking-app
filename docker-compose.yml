@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  mongo:
+    image: mongo
+    container_name: note-taking-app-mongodb-container
+    restart: unless-stopped
+    volumes:
+      - database-data:/data/db
+    networks:
+      - my-dev-network
+
+  note-taking-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: note-taking-app
+    container_name: note-taking-app-container
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - "mongo"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/note-taking-app
+    ports:
+      - 8080:8080
+    networks:
+      - my-dev-network
+    command: yarn start
+
+networks:
+  my-dev-network:
+    driver: bridge
+
+volumes:
+  database-data:
