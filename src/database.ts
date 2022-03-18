@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { IDatabase, INote, IUser } from './types';
 import { Note, User } from './models';
-import { DatabaseError } from './errors';
 
 class Database implements IDatabase {
   private mongoDbConnectionString;
