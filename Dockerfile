@@ -10,7 +10,7 @@ COPY . .
 RUN yarn && yarn build
 
 # Remove unecessary files
-RUN rm -rf ./node_modules ./src ./public
+RUN rm -rf ./node_modules ./src
 
 # Install only production dependencies
 RUN yarn --production

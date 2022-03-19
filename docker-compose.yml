@@ -33,7 +33,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - static-files:/var/www/static
+      - ./public:/var/www/static
       - ./nginx-conf:/etc/nginx/conf.d
     depends_on:
       - note-taking-app
@@ -46,9 +46,3 @@ networks:
 
 volumes:
   database-data:  
-  static-files:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./public/
-      o: bind
