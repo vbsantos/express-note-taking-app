@@ -18,7 +18,7 @@ class ErrorMiddleware {
   pageNotFoundView = (_req: Request, res: Response, next: NextFunction) => {
     next();
 
-    this.sendErrorPage(res, new NotFoundError('This page does not exist'));
+    this.sendErrorPage(res, new NotFoundError('Page not found'));
   };
 
   serverErrorHandler = (
